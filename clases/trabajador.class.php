@@ -31,6 +31,22 @@ class trabajador extends conexion {
         return ($datos);
     }
 
+     /**
+     * Esta función devuelve datos del trabajador por id, espera el Id del trabajador
+     * @var idTrabajador int
+     * @access public
+     * @return array
+     */
+    public function obtenerDatosTrabajadorPorID($idTrabajador)
+    {
+
+        $query = "SELECT trabajadores.nombreCompleto,trabajadores.numeroEmpleado,roles.rol,trabajadores.bonoPorHora,trabajadores.sueldoPorHora,trabajadores.valesDespensa
+        FROM trabajadores 
+        INNER JOIN roles ON trabajadores.idRol = roles.idRol WHERE trabajadores.idTrabajador =  '$idTrabajador'";
+
+        return parent::obtenerDatos($query);
+    }
+
 
    
 }
