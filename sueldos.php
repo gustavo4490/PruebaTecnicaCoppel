@@ -5,6 +5,10 @@ require_once 'clases/sueldos.class.php';
 $_respuestas = new respuestas;
 $_sueldo = new sueldo;
 
+// Habilita CORS para permitir solicitudes desde cualquier origen
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
