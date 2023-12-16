@@ -8,12 +8,7 @@ class sueldo extends conexion
 
 
 
-    private $nombreCompleto = "";
-    private $idRol = "";
-    private $numeroEmpleado = "";
-    private $bonoPorHora = "";
-    private $sueldoPorHora = "";
-    private $valesDespensa = "";
+    private $idSueldo = "";
     private $idTrabajador = "";
     private $mes = "";
     private $year = "";
@@ -128,6 +123,63 @@ class sueldo extends conexion
             // echo 'Ocurrió un error al ejecutar el procedimiento.';
             return false;
         }
+    }
+
+    /**
+     * Esta función elimina el sueldo de la tabla sueldos por medio de su ID.
+     * @var idSueldo
+     * @access public
+     * @return array
+     */
+    public function delete($json) {
+        $_respuestas = new respuestas;
+        $datos = json_decode($json, true);
+
+        if ($datos === null) {
+            return $_respuestas->error_400("JSON inválido");
+        }
+
+        $requiredFields = array('idSueldo');
+        foreach ($requiredFields as $field) {
+            if (!isset($datos[$field])) {
+                return $_respuestas->error_400("El campo '$field' es obligatorio");
+            }
+        }
+    
+            
+        $this->idSueldo = $datos['idSueldo'];
+       
+
+        $resp = $this->eliminarSueldo();
+    
+        if ($resp) {
+            $respuesta = $_respuestas->ok_200_procedimientos_almacenados('Sueldo eliminado con exito');
+            return $respuesta;
+        } else {
+            return $_respuestas->error_500();
+        }
+    }
+
+    /**
+     * Esta función ejecuta un procedimiento almacenado que elimina registro en la tabla sueldos por el ID
+     * @access private
+     * @return array
+     */
+    private function eliminarSueldo(){
+        $params = array(
+            // i = int
+            array('type' => 'i', 'value' => $this->idSueldo)
+        );
+        $result = $this->executeStoredProcedure('eliminarSueldoPorID', $params);
+        echo $result;
+        if ($result) {
+            // echo 'El procedimiento se ejecutó correctamente.';
+            return true;
+        } else {
+            // echo 'Ocurrió un error al ejecutar el procedimiento.';
+            return false;
+        }
+        
     }
 
    

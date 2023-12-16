@@ -35,7 +35,33 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         http_response_code(200);
     }
     echo json_encode($datosArray);
-}  else {
+} else if($_SERVER['REQUEST_METHOD'] == "DELETE"){
+
+    $headers = getallheaders();
+    if(isset($headers["idSueldo"])){
+        //recibimos los datos enviados por el header
+        $send = [
+            "idSueldo" =>$headers["idSueldo"]
+        ];
+        $postBody = json_encode($send);
+    }else{
+        //recibimos los datos enviados
+        $postBody = file_get_contents("php://input");
+    }
+    
+    //enviamos datos al manejador
+    $datosArray = $_sueldo->delete($postBody);
+    //delvovemos una respuesta 
+    header('Content-Type: application/json');
+    if(isset($datosArray["result"]["error_id"])){
+        $responseCode = $datosArray["result"]["error_id"];
+        http_response_code($responseCode);
+    }else{
+        http_response_code(200);
+    }
+    echo json_encode($datosArray);
+   
+} else {
     header('Content-Type: application/json');
     $datosArray = $_respuestas->error_405();
     echo json_encode($datosArray);
