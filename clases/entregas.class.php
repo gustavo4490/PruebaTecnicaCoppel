@@ -5,12 +5,7 @@ require_once "respuestas.class.php";
 
 class entregas extends conexion {
 
-    private $table = "entregas";
-    private $tableTrabajador = "trabajadores";
-    private $idTrabajador = "";
-    private $precioEntrega = "";
-    private $cantidadEntregas = "";
-    private $fecha = "";
+  
 
     /**
      * Esta función devuelve listado de todas las entregas, espera el numero de pagina ya que solo trae 100 registros
@@ -32,6 +27,23 @@ class entregas extends conexion {
 
         $datos = parent::obtenerDatos($query);
         return ($datos);
+    }
+
+ 
+    /**
+     * Esta función devuelve las entregas por trabajador, espera el Id del trabajador
+     * @var idTrabajador int
+     * @access public
+     * @return array
+     */
+    public function obtenerEntregasPorTrabajador($idTrabajador){
+               
+        $query= "SELECT entregas.idEntrega,trabajadores.nombreCompleto,entregas.precioEntrega,entregas.cantidadEntregas,entregas.fecha 
+        FROM entregas 
+        INNER JOIN trabajadores ON entregas.idTrabajador = trabajadores.idTrabajador WHERE entregas.idTrabajador = '$idTrabajador'";
+        
+        return parent::obtenerDatos($query);
+
     }
 
 
