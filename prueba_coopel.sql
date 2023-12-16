@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2023 a las 17:56:51
+-- Tiempo de generación: 17-12-2023 a las 00:42:50
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 7.4.33
 
@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `calcularSueldoPorId` (IN `trabajadorId` INT, IN `mes` INT, IN `ano` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `calcularSueldoPorId` (IN `trabajadorId` INT, IN `mes` INT, IN `SalarioYear` INT)   BEGIN
     DECLARE salarioPorHora INT;
     DECLARE bonoXHora INT;
     DECLARE entregasXFecha DECIMAL(10,2);
@@ -55,7 +55,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `calcularSueldoPorId` (IN `trabajado
     -- Obtener datos del trabajador entregas
 	SELECT IFNULL( SUM(cantidadEntregas),0) AS totalEntregas INTO entregasXFecha
 	FROM entregas
-	WHERE YEAR(entregas.fecha) = ano 
+	WHERE YEAR(entregas.fecha) = SalarioYear 
   	AND MONTH(entregas.fecha) = mes
   	AND idTrabajador = trabajadorId;
     
@@ -83,7 +83,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `calcularSueldoPorId` (IN `trabajado
 
     -- Insertar los resultados en la tabla Sueldos
     INSERT INTO Sueldos (idTrabajador, totalSalarioBase, totalBono, totalEntregas, sueldoBruto, sueldoNeto, totalValesDespensa, SalarioFinaldecimal,mesSalario,año)
-    VALUES (trabajadorId, totalSalarioBase, totalBono, totalEntregas, sueldoBruto, sueldoNeto, totalValesDespensa, salarioFinal,mes,ano);
+    VALUES (trabajadorId, totalSalarioBase, totalBono, totalEntregas, sueldoBruto, sueldoNeto, totalValesDespensa, salarioFinal,mes,SalarioYear);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `editarTrabajador` (IN `e_idTrabajador` INT, IN `e_nombreCompleto` VARCHAR(255), IN `e_idRol` INT, IN `e_numeroEmpleado` VARCHAR(255))   BEGIN
@@ -136,7 +136,9 @@ CREATE TABLE `entregas` (
 INSERT INTO `entregas` (`idEntrega`, `idTrabajador`, `precioEntrega`, `cantidadEntregas`, `fecha`) VALUES
 (1, 1, 5, 10, '2023-12-16'),
 (2, 2, 5, 6, '2023-12-15'),
-(4, 1, 5, 9, '2023-12-15');
+(4, 1, 5, 9, '2023-12-15'),
+(5, 1, 5, 14, '2023-12-12'),
+(6, 1, 5, 14, '2023-12-12');
 
 -- --------------------------------------------------------
 
@@ -183,7 +185,8 @@ CREATE TABLE `sueldos` (
 --
 
 INSERT INTO `sueldos` (`idSueldo`, `idTrabajador`, `totalSalarioBase`, `totalBono`, `totalEntregas`, `sueldoBruto`, `sueldoNeto`, `totalValesDespensa`, `SalarioFinaldecimal`, `mesSalario`, `año`) VALUES
-(4, 1, '5760.00', '1920.00', '95.00', '7775.00', '7075.25', '311.00', '7386.25', '12', '2023');
+(6, 1, '5760.00', '1920.00', '235.00', '7915.00', '7202.65', '316.60', '7519.25', '12', '2023'),
+(7, 1, '5760.00', '1920.00', '235.00', '7915.00', '7202.65', '316.60', '7519.25', '12', '2023');
 
 -- --------------------------------------------------------
 
@@ -209,7 +212,8 @@ INSERT INTO `trabajadores` (`idTrabajador`, `nombreCompleto`, `idRol`, `numeroEm
 (1, 'Andres Gustavo Diaz', 1, 'R001', 10, 30, '0.04'),
 (2, 'Elvis Andre Rodriguez', 2, 'R002', 5, 30, '0.04'),
 (3, 'Ashley Julieth Diaz', 3, 'R003', 0, 30, '0.04'),
-(4, 'Franklin Diaz', 1, 'R004', 10, 30, '0.04');
+(4, 'Franklin Diaz', 1, 'R004', 10, 30, '0.04'),
+(8, 'Cheto chef', 3, 'R005', 0, 30, '0.04');
 
 --
 -- Índices para tablas volcadas
@@ -251,19 +255,19 @@ ALTER TABLE `trabajadores`
 -- AUTO_INCREMENT de la tabla `entregas`
 --
 ALTER TABLE `entregas`
-  MODIFY `idEntrega` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idEntrega` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `sueldos`
 --
 ALTER TABLE `sueldos`
-  MODIFY `idSueldo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idSueldo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `trabajadores`
 --
 ALTER TABLE `trabajadores`
-  MODIFY `idTrabajador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idTrabajador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
