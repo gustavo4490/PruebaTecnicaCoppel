@@ -3,14 +3,15 @@ require_once "conexion/conexion.php";
 require_once "respuestas.class.php";
 
 
-class entregas extends conexion {
+class entregas extends conexion
+{
 
     private $idTrabajador = "";
     private $precioEntrega = "";
     private $cantidadEntrega = "";
     private $fecha = "";
 
-  
+
 
     /**
      * Esta función devuelve listado de todas las entregas, espera el numero de pagina ya que solo trae 100 registros
@@ -18,11 +19,12 @@ class entregas extends conexion {
      * @access public
      * @return array
      */
-    public function listaEntregas($pagina = 1){
-        $inicio  = 0 ;
+    public function listaEntregas($pagina = 1)
+    {
+        $inicio  = 0;
         $cantidad = 100;
-        if($pagina > 1){
-            $inicio = ($cantidad * ($pagina - 1)) +1 ;
+        if ($pagina > 1) {
+            $inicio = ($cantidad * ($pagina - 1)) + 1;
             $cantidad = $cantidad * $pagina;
         }
         $query = "SELECT entregas.idEntrega,trabajadores.nombreCompleto,entregas.precioEntrega,entregas.cantidadEntregas,entregas.fecha 
@@ -34,21 +36,21 @@ class entregas extends conexion {
         return ($datos);
     }
 
- 
+
     /**
      * Esta función devuelve las entregas por trabajador, espera el Id del trabajador
      * @var idTrabajador int
      * @access public
      * @return array
      */
-    public function obtenerEntregasPorTrabajador($idTrabajador){
-               
-        $query= "SELECT entregas.idEntrega,trabajadores.nombreCompleto,entregas.precioEntrega,entregas.cantidadEntregas,entregas.fecha 
+    public function obtenerEntregasPorTrabajador($idTrabajador)
+    {
+
+        $query = "SELECT entregas.idEntrega,trabajadores.nombreCompleto,entregas.precioEntrega,entregas.cantidadEntregas,entregas.fecha 
         FROM entregas 
         INNER JOIN trabajadores ON entregas.idTrabajador = trabajadores.idTrabajador WHERE entregas.idTrabajador = '$idTrabajador'";
-        
-        return parent::obtenerDatos($query);
 
+        return parent::obtenerDatos($query);
     }
 
     /**
@@ -61,7 +63,8 @@ class entregas extends conexion {
      * @return array
      */
 
-    public function post($json){
+    public function post($json)
+    {
         $_respuestas = new respuestas;
         $datos = json_decode($json, true);
 
@@ -76,7 +79,7 @@ class entregas extends conexion {
             }
         }
 
-        $this-> idTrabajador = $datos['idTrabajador'];
+        $this->idTrabajador = $datos['idTrabajador'];
         $this->precioEntrega = $datos['precioEntrega'];
         $this->cantidadEntrega = $datos['cantidadEntrega'];
         $this->fecha = $datos['fecha'];
@@ -99,13 +102,14 @@ class entregas extends conexion {
         }
     }
 
-     /**
+    /**
      * Esta función inserta a la base de datos las entregas .
      * @access private
      * @return boolen
      */
 
-     private function insertarEntregas(){
+    private function insertarEntregas()
+    {
 
         $params = array(
             //s= string , i = int
@@ -113,7 +117,7 @@ class entregas extends conexion {
             array('type' => 's', 'value' => $this->precioEntrega),
             array('type' => 's', 'value' => $this->cantidadEntrega),
             array('type' => 's', 'value' => $this->fecha)
-            
+
         );
         $result = $this->executeStoredProcedure('InsertarEntrega', $params);
         if ($result) {
@@ -124,15 +128,4 @@ class entregas extends conexion {
             return false;
         }
     }
-
-
-
-
-     
 }
-
-
-
-
-
-?>
