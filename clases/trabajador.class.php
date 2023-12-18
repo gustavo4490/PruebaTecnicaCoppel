@@ -29,12 +29,12 @@ class trabajador extends conexion
     public function listaTodosLosTrabajadores($pagina = 1)
     {
         $inicio  = 0;
-        $cantidad = 100;
+        $cantidad = 10;
         if ($pagina > 1) {
             $inicio = ($cantidad * ($pagina - 1)) + 1;
             $cantidad = $cantidad * $pagina;
         }
-        $query = "SELECT trabajadores.nombreCompleto,trabajadores.numeroEmpleado,roles.rol,trabajadores.bonoPorHora,trabajadores.sueldoPorHora,trabajadores.valesDespensa
+        $query = "SELECT idTrabajador,trabajadores.nombreCompleto,trabajadores.numeroEmpleado,roles.rol,trabajadores.bonoPorHora,trabajadores.sueldoPorHora,trabajadores.valesDespensa
         FROM trabajadores 
         INNER JOIN roles ON trabajadores.idRol = roles.idRol" . " limit $inicio,$cantidad";
         $datos = parent::obtenerDatos($query);
