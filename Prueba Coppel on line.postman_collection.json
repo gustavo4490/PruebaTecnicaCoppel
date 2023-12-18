@@ -1,0 +1,364 @@
+{
+	"info": {
+		"_postman_id": "a287cbce-9539-442d-965a-0b07dc5d14c1",
+		"name": "Prueba Coppel on line",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19597609"
+	},
+	"item": [
+		{
+			"name": "Sueldos",
+			"item": [
+				{
+					"name": "Obtener todos los sueldos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/sueldos?page=1",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"sueldos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Sueldo por Id, body",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idSueldo\": \"8\"\r\n       \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/sueldos",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"sueldos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar sueldo id, header",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "idSueldo",
+								"value": "9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/sueldos",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"sueldos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calcular Sueldo por trabajador",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idTrabajador\": 8,\r\n        \"mes\": 12,\r\n        \"year\": 2023\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/sueldos",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"sueldos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "entregas",
+			"item": [
+				{
+					"name": "obtener todas las entregas, paginacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/entregas?page=1",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"entregas"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener entregas por Trabajador",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/entregas?id=2",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"entregas"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Guardar Entregas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idTrabajador\": 1,\r\n        \"precioEntrega\": \"5\",\r\n        \"cantidadEntrega\": \"14\",\r\n        \"fecha\": \"2023-12-12\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/entregas",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"entregas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trabajadores",
+			"item": [
+				{
+					"name": "Guardar Trabajador",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"nombreCompleto\": \"Cheto chef\",\r\n        \"idRol\": 3,\r\n        \"numeroEmpleado\": \"R005\",\r\n        \"bonoPorHora\": \"0\",\r\n        \"sueldoPorHora\": \"30\",\r\n        \"valesDespensa\":\"0.04\"\r\n}\r\n\r\n ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/trabajadores",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"trabajadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar trabajador por ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idTrabajador\": 5,\r\n        \"nombreCompleto\": \"Jereth Said Rodriguez\",\r\n        \"idRol\": 1,\r\n        \"numeroEmpleado\": \"R006\"\r\n        \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/trabajadores",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"trabajadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener sueldos por trabajador ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/sueldos?id=1",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"sueldos"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los trabajadores, paginacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/trabajadores?page=1",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"trabajadores"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener datos trabajador por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://control.huehuetenango.com.gt/trabajadores?id=1",
+							"protocol": "https",
+							"host": [
+								"control",
+								"huehuetenango",
+								"com",
+								"gt"
+							],
+							"path": [
+								"trabajadores"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
