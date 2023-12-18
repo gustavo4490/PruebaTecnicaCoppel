@@ -36,7 +36,7 @@ class trabajador extends conexion
         }
         $query = "SELECT idTrabajador,trabajadores.nombreCompleto,trabajadores.numeroEmpleado,roles.rol,trabajadores.bonoPorHora,trabajadores.sueldoPorHora,trabajadores.valesDespensa
         FROM trabajadores 
-        INNER JOIN roles ON trabajadores.idRol = roles.idRol" . " limit $inicio,$cantidad";
+        INNER JOIN roles ON trabajadores.idRol = roles.idRol order by idTrabajador asc" . " limit $inicio,$cantidad";
         $datos = parent::obtenerDatos($query);
         return ($datos);
     }
